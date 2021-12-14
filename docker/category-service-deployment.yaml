@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.25.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: category-service
+  name: category-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: category-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.25.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/watto: "true"
+        io.kompose.service: category-service
+        app: category-service-app
+    spec:
+      containers:
+        - image: category-service:latest
+          imagePullPolicy: Never
+          name: category-service
+          ports:
+            - containerPort: 8200
+          resources: {}
+      restartPolicy: Always
+status: {}

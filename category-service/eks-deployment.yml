@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: category-service-deployment
+  namespace: from0tocloud-backend
+  labels:
+    app: category-service-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: category-service-app
+  template:
+    metadata:
+      labels:
+        app: category-service-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: category-service
+        image: 129822709161.dkr.ecr.eu-west-1.amazonaws.com/category-service:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8200

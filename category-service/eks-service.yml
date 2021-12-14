@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: category-service
+  namespace: from0tocloud-backend
+  labels:
+    app: category-service-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: category-service-app
+  ports:
+    - protocol: TCP
+      port: 8200
+      targetPort: 8200

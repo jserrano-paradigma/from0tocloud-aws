@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: category-service-deployment
+  namespace: from0tocloud-backend
+  labels:
+    app: category-service-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: category-service-app
+  template:
+    metadata:
+      labels:
+        app: category-service-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: category-service
+        image: 129822709161.dkr.ecr.eu-west-1.amazonaws.com/category-service:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8200
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: category-service
+  namespace: from0tocloud-backend
+  labels:
+    app: category-service-app
+spec:
+  # type: LoadBalancer
+  selector:
+    app: category-service-app
+  ports:
+    - name: category-service
+      port: 8200
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   namespace: from0tocloud-backend
+#   name: category-service-ingress
+#   annotations:
+#     kubernetes.io/ingress.class: alb
+#     alb.ingress.kubernetes.io/scheme: internet-facing
+#     alb.ingress.kubernetes.io/target-type: ip
+# spec:
+#   rules:
+#     - http:
+#         paths:
+#           - path: /*
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: category-service
+#                 port: 
+#                   number: 8200

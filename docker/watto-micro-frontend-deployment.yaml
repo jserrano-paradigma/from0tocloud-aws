@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.25.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: watto-micro-frontend
+  name: watto-micro-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: watto-micro-frontend
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.25.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/watto: "true"
+        io.kompose.service: watto-micro-frontend
+        app: watto-micro-frontend-app
+    spec:
+      containers:
+        - image: watto-micro-frontend:latest
+          imagePullPolicy: Never
+          name: watto-micro-frontend
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}

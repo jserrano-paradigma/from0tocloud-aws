@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: item-service-deployment
+  namespace: from0tocloud-backend
+  labels:
+    app: item-service-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: item-service-app
+  template:
+    metadata:
+      labels:
+        app: item-service-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: item-service
+        image: 129822709161.dkr.ecr.eu-west-1.amazonaws.com/item-service:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8300
