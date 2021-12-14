@@ -4,7 +4,7 @@ En este repositorio se encuentran los proyectos del cuarto webinar de la serie F
 
 PAra seguir el webinar se han realizado estos [pasos](iac/eksctl/STEPS.md).
 
-El webinar se puede seguir en el canal de Youtube de [Paradigma digital](https://www.youtube.com/channel/UCi_e1gB9PYjr1OTY_W0hY3g) donde hay muchos otros videos que te pueden interesar, tambien puedes acceder directamente desde [From 0 to Cloud: de monolito a Cloud Friendly](https://youtu.be/D5-jl9uI0x0)
+El webinar se puede seguir en el canal de Youtube de [Paradigma digital](https://www.youtube.com/channel/UCi_e1gB9PYjr1OTY_W0hY3g) donde hay muchos otros videos que te pueden interesar.
 
 ## Autores
 
